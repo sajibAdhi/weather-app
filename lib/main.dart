@@ -17,6 +17,18 @@ class _WeatherAppState extends State<WeatherApp> {
             Container(
               child: Image.asset('assets/images/dayTime.jpg'),
             ),
+            // SizedBox(height: 50.0),
+            Container(
+              // margin: EdgeInsets.only(top: 50.0),
+              child: Text(
+                'You are in: ',
+                style: TextStyle(
+                  fontSize: 35.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue[500],
+                ),
+              ),
+            ),
           ],
         ),
       ),
