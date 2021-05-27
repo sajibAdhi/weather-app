@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
@@ -94,9 +95,24 @@ class _WeatherAppState extends State<WeatherApp> {
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      print('The current location is $position');
+
+      getCityname(position.latitude, position.longitude);
     } catch (e) {
       print(e);
     }
+  }
+
+  // Get City Name
+  Future<String> getCityname(double lat, double lon) async {
+    List<Placemark> placemarks = [];
+    print('getCityname');
+    try {
+      placemarks = await placemarkFromCoordinates(lat, lon);
+      print('City Name is: ${placemarks[0].locality}');
+    } catch (error) {
+      print(error);
+    }
+
+    return placemarks[0].locality;
   }
 }
