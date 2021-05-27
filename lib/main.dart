@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(WeatherApp());
 
@@ -16,7 +17,7 @@ class _WeatherAppState extends State<WeatherApp> {
         body: Column(
           children: <Widget>[
             Container(
-              child: Image.asset('assets/images/dayTime.jpg'),
+              child: displayImage(),
             ),
             // SizedBox(height: 50.0),
             Container(
@@ -70,5 +71,18 @@ class _WeatherAppState extends State<WeatherApp> {
         ),
       ),
     );
+  }
+
+  //  Display Image based on current Time
+  displayImage() {
+    var now = DateTime.now();
+    final currentTime = DateFormat.jm().format(now);
+    print('The current time is: $currentTime');
+
+    if (currentTime.contains('AM')) {
+      return Image.asset('assets/images/dayTime.jpg');
+    } else if (currentTime.contains('PM')) {
+      return Image.asset('assets/images/nightTime.jpg');
+    }
   }
 }
