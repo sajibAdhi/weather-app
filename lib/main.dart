@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
 void main() => runApp(WeatherApp());
@@ -11,6 +12,8 @@ class WeatherApp extends StatefulWidget {
 class _WeatherAppState extends State<WeatherApp> {
   @override
   Widget build(BuildContext context) {
+    getCurrentLocation();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -83,6 +86,17 @@ class _WeatherAppState extends State<WeatherApp> {
       return Image.asset('assets/images/dayTime.jpg');
     } else if (currentTime.contains('PM')) {
       return Image.asset('assets/images/nightTime.jpg');
+    }
+  }
+
+  // Get Current Location
+  Future<void> getCurrentLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      print('The current location is $position');
+    } catch (e) {
+      print(e);
     }
   }
 }
