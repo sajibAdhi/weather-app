@@ -21,7 +21,7 @@ class GetLocation {
   // Get City Name
   Future<String> getCityname(double lat, double lon) async {
     List<Placemark> placemarks = [];
-    print('getCityname');
+    
     try {
       placemarks = await placemarkFromCoordinates(lat, lon);
       print('City Name is: ${placemarks[0].locality}');
