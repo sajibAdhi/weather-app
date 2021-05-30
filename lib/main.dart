@@ -12,10 +12,12 @@ class WeatherApp extends StatefulWidget {
 }
 
 class _WeatherAppState extends State<WeatherApp> {
+  var description;
+  var temp = 0.00;
+
   @override
   Widget build(BuildContext context) {
     getLocation();
-    getTemp();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -70,7 +72,9 @@ class _WeatherAppState extends State<WeatherApp> {
               color: Colors.white,
               child: ListTile(
                 leading: Icon(Icons.wb_sunny, color: Colors.amber),
-                title: Text('Temp 25 C'),
+                title: Text(
+                  'Temp: ${temp.toString()} C',
+                ),
               ),
             ),
           ],
@@ -100,18 +104,27 @@ class _WeatherAppState extends State<WeatherApp> {
     print(getLocation.latitude);
     print(getLocation.longitude);
     print(getLocation.city);
+
+    getTemp(getLocation.latitude, getLocation.longitude);
   }
 
   // Get Temp
-  Future<void> getTemp() async {
-    var url = Uri.parse(
-        'http://api.openweathermap.org/data/2.5/weather?lat=23.793668999999998&lon=90.36123769999999&appid=0769fb37917d0ed73656a2e17095965b');
-    http.Response response = await http.get(url);
+  Future<void> getTemp(double lat, double lon) async {
+    try {
+      var uri = 'http://api.openweathermap.org/data/2.5/weather?lat=' +
+          lat.toString() +
+          '&lon=' +
+          lon.toString() +
+          '&appid=0769fb37917d0ed73656a2e17095965b&units=metric';
+      var url = Uri.parse(uri);
+      http.Response response = await http.get(url);
 
-    var dataDecoded = jsonDecode(response.body);
-    var description = dataDecoded["weather"][0]['description'];
-    var temp = dataDecoded["main"]['temp'];
-    print(description);
-    print(temp);
+      var dataDecoded = jsonDecode(response.body);
+      description = dataDecoded["weather"][0]['description'];
+      // temp = dataDecoded["main"]['temp'];
+      print('Temp: ${temp.toString()} C');
+    } catch (e) {
+      print(e);
+    }
   }
 }
