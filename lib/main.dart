@@ -13,7 +13,8 @@ class WeatherApp extends StatefulWidget {
 
 class _WeatherAppState extends State<WeatherApp> {
   var description;
-  var temp = 0.00;
+  var temp;
+  String city;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class _WeatherAppState extends State<WeatherApp> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      'Bangladesh',
+                      city.toString(),
                       style: TextStyle(
                         fontSize: 35.0,
                         fontWeight: FontWeight.bold,
@@ -73,7 +74,25 @@ class _WeatherAppState extends State<WeatherApp> {
               child: ListTile(
                 leading: Icon(Icons.wb_sunny, color: Colors.amber),
                 title: Text(
-                  'Temp: ${temp.toString()} C',
+                  'Temperature: ${temp.toString()} C',
+                ),
+                subtitle: Text(
+                  'Status ${description.toString()}',
+                ),
+              ),
+            ),
+            Container(
+              child: Center(
+                // ignore: deprecated_member_use
+                child: FlatButton(
+                  child: Text('Get Weather Info'),
+                  color: Colors.blue[500],
+                  textColor: Colors.white,
+                  onPressed: (){
+                    setState((){
+                      getLocation();
+                    });
+                  },
                 ),
               ),
             ),
@@ -101,27 +120,24 @@ class _WeatherAppState extends State<WeatherApp> {
     GetLocation getLocation = GetLocation();
     await getLocation.getCurrentLocation();
 
-    print(getLocation.latitude);
-    print(getLocation.longitude);
-    print(getLocation.city);
-
+    print('getLocation.latitude: ${getLocation.latitude}');
+    print("getLocation.longitude: ${getLocation.longitude}");
+    print("getLocation.city: ${getLocation.city}");
+    city = getLocation.city;
     getTemp(getLocation.latitude, getLocation.longitude);
   }
 
   // Get Temp
   Future<void> getTemp(double lat, double lon) async {
+    String appId = '0769fb37917d0ed73656a2e17095965b';
     try {
-      var uri = 'http://api.openweathermap.org/data/2.5/weather?lat=' +
-          lat.toString() +
-          '&lon=' +
-          lon.toString() +
-          '&appid=0769fb37917d0ed73656a2e17095965b&units=metric';
+      var uri = 'http://api.openweathermap.org/data/2.5/weather?lat=${lat.toString()}&lon=${lon.toString()}&appid=$appId&units=metric';
       var url = Uri.parse(uri);
       http.Response response = await http.get(url);
 
       var dataDecoded = jsonDecode(response.body);
       description = dataDecoded["weather"][0]['description'];
-      // temp = dataDecoded["main"]['temp'];
+      temp = dataDecoded["main"]['temp'];
       print('Temp: ${temp.toString()} C');
     } catch (e) {
       print(e);

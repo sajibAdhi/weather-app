@@ -12,24 +12,24 @@ class GetLocation {
           desiredAccuracy: LocationAccuracy.high);
       latitude = position.latitude;
       longitude = position.longitude;
-      city = await getCityname(position.latitude, position.longitude);
+      city = await getCityName(position.latitude, position.longitude);
     } catch (e) {
       print(e);
     }
   }
 
   // Get City Name
-  Future<String> getCityname(double lat, double lon) async {
+  Future<String> getCityName(double lat, double lon) async {
     List<Placemark> placemarks = [];
-    
+
     try {
-      placemarks = await placemarkFromCoordinates(lat, lon);
+      placemarks = await placemarkFromCoordinates(lat, lon, localeIdentifier: "en");
       print('City Name is: ${placemarks[0].locality}');
     } catch (error) {
-      print(error);
+      print("getCityName error: $error");
     }
-
     return placemarks[0].locality;
+
   }
 
  
