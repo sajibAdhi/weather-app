@@ -5,8 +5,7 @@ class GetLocation {
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      print(position);
-      // return position;
+      return position;
     } catch (e) {
       print(e);
     }
