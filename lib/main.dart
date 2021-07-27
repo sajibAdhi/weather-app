@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/get_location.dart';
-
+import 'display_weather_data.dart';
 
 void main() => runApp(WeatherApp());
 
@@ -11,14 +10,9 @@ class WeatherApp extends StatefulWidget {
 }
 
 class _WeatherAppState extends State<WeatherApp> {
-  var description;
-  var temp;
-  String city;
-
+  DisplayWeatherData _displayWeatherData = DisplayWeatherData();
   @override
   Widget build(BuildContext context) {
-    getLocation();
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -29,71 +23,7 @@ class _WeatherAppState extends State<WeatherApp> {
             ),
             // SizedBox(height: 50.0),
             Container(
-              margin: EdgeInsets.only(top: 50.0),
-              child: Text(
-                'You are in: ',
-                style: TextStyle(
-                  fontSize: 35.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue[500],
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      city.toString(),
-                      style: TextStyle(
-                        fontSize: 35.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[500],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10.0),
-                  Container(
-                    child: Icon(
-                      Icons.location_on,
-                      color: Colors.red,
-                      size: 35.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              margin: EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 25.0,
-              ),
-              color: Colors.white,
-              child: ListTile(
-                leading: Icon(Icons.wb_sunny, color: Colors.amber),
-                title: Text(
-                  'Temperature: ${temp.toString()} C',
-                ),
-                subtitle: Text(
-                  'Status ${description.toString()}',
-                ),
-              ),
-            ),
-            Container(
-              child: Center(
-                // ignore: deprecated_member_use
-                child: FlatButton(
-                  child: Text('Get Weather Info'),
-                  color: Colors.blue[500],
-                  textColor: Colors.white,
-                  onPressed: (){
-                    setState((){
-                      getLocation();
-                    });
-                  },
-                ),
-              ),
+              child: _displayWeatherData,
             ),
           ],
         ),
@@ -113,18 +43,4 @@ class _WeatherAppState extends State<WeatherApp> {
       return Image.asset('assets/images/nightTime.jpg');
     }
   }
-
-  // Get Location
-  Future<void> getLocation() async {
-    GetLocation getLocation = GetLocation();
-    await getLocation.getCurrentLocation();
-
-    print('getLocation.latitude: ${getLocation.latitude}');
-    print("getLocation.longitude: ${getLocation.longitude}");
-    print("getLocation.city: ${getLocation.city}");
-    city = getLocation.city;
-    getTemp(getLocation.latitude, getLocation.longitude);
-  }
-
-
 }
