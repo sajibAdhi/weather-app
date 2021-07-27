@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'http_handler.dart';
 import 'weather_data.dart';
 
-class DisplayWeatherData extends StatelessWidget {
-  Future<WeatherData> _getWeatherData;
+class DisplayWeatherData extends StatefulWidget {
+  const DisplayWeatherData({Key? key}) : super(key: key);
 
   @override
+  _DisplayWeatherDataState createState() => _DisplayWeatherDataState();
+}
+
+class _DisplayWeatherDataState extends State<DisplayWeatherData> {
+  Future<WeatherData> _getWeatherData = HttpHandler.getTemp();
+
   Widget build(BuildContext context) {
-    _getWeatherData = HttpHandler.getTemp();
     return FutureBuilder<WeatherData>(
       future: _getWeatherData,
       builder: (context, snapshot) {
@@ -31,7 +36,7 @@ class DisplayWeatherData extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        snapshot.data.city,
+                        "${snapshot.data!.city}",
                         style: TextStyle(
                           fontSize: 35.0,
                           fontWeight: FontWeight.bold,
@@ -59,10 +64,10 @@ class DisplayWeatherData extends StatelessWidget {
                 child: ListTile(
                   leading: Icon(Icons.wb_sunny, color: Colors.amber),
                   title: Text(
-                    'Temperature: ${snapshot.data.temp} C',
+                    'Temperature: ${snapshot.data!.temp} C',
                   ),
                   subtitle: Text(
-                    'Status ${snapshot.data.description}',
+                    'Status ${snapshot.data!.description}',
                   ),
                 ),
               ),

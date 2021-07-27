@@ -3,13 +3,12 @@ class WeatherData {
   final String description;
   final int temp;
 
-  WeatherData({this.city, this.description, this.temp});
+  WeatherData({required this.city, required this.description, required this.temp});
 
   factory WeatherData.fromJSON(Map<String, dynamic> json) {
     return WeatherData(
-      city: json['name'],
-      description: json['weather'][0]['description'],
-      temp: json['main']['temp']
-    );
+        city: json['name'],
+        description: json['weather'][0]['description'],
+        temp: json['main']['temp']);
   }
 }
