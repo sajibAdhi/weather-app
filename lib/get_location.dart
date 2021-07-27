@@ -7,7 +7,7 @@ class GetLocation {
           desiredAccuracy: LocationAccuracy.high);
       return position;
     } catch (e) {
-      print(e);
+      print("GetLocation error $e");
     }
   }
 }

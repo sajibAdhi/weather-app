@@ -35,7 +35,6 @@ class _WeatherAppState extends State<WeatherApp> {
   displayImage() {
     var now = DateTime.now();
     final currentTime = DateFormat.jm().format(now);
-    print('The current time is: $currentTime');
 
     if (currentTime.contains('AM')) {
       return Image.asset('assets/images/dayTime.jpg');

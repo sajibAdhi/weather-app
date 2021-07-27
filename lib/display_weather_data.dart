@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'http_handler.dart';
 import 'weather_data.dart';
+import 'get_icon.dart';
 
 class DisplayWeatherData extends StatefulWidget {
   const DisplayWeatherData({Key? key}) : super(key: key);
@@ -62,7 +63,7 @@ class _DisplayWeatherDataState extends State<DisplayWeatherData> {
                 ),
                 color: Colors.white,
                 child: ListTile(
-                  leading: Icon(Icons.wb_sunny, color: Colors.amber),
+                  leading: GetIcon.getIcon('01n'),
                   title: Text(
                     'Temperature: ${snapshot.data!.temp} C',
                   ),
@@ -74,9 +75,10 @@ class _DisplayWeatherDataState extends State<DisplayWeatherData> {
             ],
           );
         } else if (snapshot.hasError) {
-          return Text("${snapshot.hasError}");
+          return Text("Display Weather Data ${snapshot.hasError}");
+        }else{
+          return CircularProgressIndicator();
         }
-        return CircularProgressIndicator();
       },
     );
   }

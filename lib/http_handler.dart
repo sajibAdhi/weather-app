@@ -10,7 +10,7 @@ class HttpHandler {
   // Get Temp
   static Future<WeatherData> getTemp() async {
     var _getLatLoc = await _getLocation.getCurrentLocation();
-    print(_getLatLoc);
+
     if (_getLatLoc != null) {
       var uri =
           'http://api.openweathermap.org/data/2.5/weather?lat=${_getLatLoc.latitude}&lon=${_getLatLoc.longitude}&appid=$_apiKey&units=metric';
