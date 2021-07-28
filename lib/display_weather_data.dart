@@ -60,7 +60,7 @@ class DisplayWeatherData extends StatelessWidget {
                 ),
                 color: Colors.white,
                 child: ListTile(
-                  leading: GetIcon.getIcon('01n'),
+                  leading: GetIcon.getIcon('${snapshot.data!.icon}'),
                   title: Text(
                     'Temperature: ${snapshot.data!.temp} C',
                   ),
