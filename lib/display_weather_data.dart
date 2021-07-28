@@ -9,8 +9,7 @@ class DisplayWeatherData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _getWeatherData = HttpHandler.getTemp();
-
+    _getWeatherData = HttpHandler.getHttpData();
     return FutureBuilder<WeatherData>(
       future: _getWeatherData,
       builder: (context, snapshot) {
