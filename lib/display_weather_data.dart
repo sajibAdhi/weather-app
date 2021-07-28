@@ -64,7 +64,7 @@ class DisplayWeatherData extends StatelessWidget {
                     'Temperature: ${snapshot.data!.temp} C',
                   ),
                   subtitle: Text(
-                    'Status ${snapshot.data!.description}',
+                    'Status: ${snapshot.data!.description}',
                   ),
                 ),
               ),

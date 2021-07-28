@@ -25,10 +25,38 @@ class GetIcon {
       return Icon(
         FontAwesomeIcons.cloud,
       );
+    } else if (iconCode == '04d' || iconCode == '04n') {
+      return Icon(
+        FontAwesomeIcons.soundcloud,
+        color: Colors.grey,
+      );
+    } else if (iconCode == '09d' || iconCode == '09n') {
+      return Icon(
+        FontAwesomeIcons.cloudShowersHeavy,
+        color: Colors.grey,
+      );
+    } else if (iconCode == '10d' || iconCode == '10n') {
+      return Icon(
+        FontAwesomeIcons.cloudRain,
+        color: Colors.grey,
+      );
+    } else if (iconCode == '11d' || iconCode == '11n') {
+      return Icon(
+        FontAwesomeIcons.wind,
+        color: Colors.grey,
+      );
+    } else if (iconCode == '13d' || iconCode == '13n') {
+      return Icon(
+        FontAwesomeIcons.snowflake,
+        color: Colors.grey,
+      );
+    } else if (iconCode == '50d' || iconCode == '50n') {
+      return Icon(
+        FontAwesomeIcons.cloud,
+        color: Colors.grey,
+      );
+    } else {
+      return throw Exception('---');
     }
-    return Icon(
-      FontAwesomeIcons.solidSun,
-      color: Colors.amber,
-    );
   }
 }
