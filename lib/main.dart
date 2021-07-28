@@ -21,7 +21,7 @@ class _WeatherAppState extends State<WeatherApp> {
             Container(
               child: displayImage(),
             ),
-            // SizedBox(height: 50.0),
+            SizedBox(height: 50.0),
             Container(
               child: _displayWeatherData,
             ),

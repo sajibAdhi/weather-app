@@ -4,7 +4,8 @@ class GetLocation {
   Future getCurrentLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.high,
+      );
       return position;
     } catch (e) {
       print("GetLocation error $e");

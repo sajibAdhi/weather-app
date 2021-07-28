@@ -3,17 +3,14 @@ import 'http_handler.dart';
 import 'weather_data.dart';
 import 'get_icon.dart';
 
-class DisplayWeatherData extends StatefulWidget {
-  const DisplayWeatherData({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class DisplayWeatherData extends StatelessWidget {
+  Future<WeatherData>? _getWeatherData;
 
   @override
-  _DisplayWeatherDataState createState() => _DisplayWeatherDataState();
-}
-
-class _DisplayWeatherDataState extends State<DisplayWeatherData> {
-  Future<WeatherData> _getWeatherData = HttpHandler.getTemp();
-
   Widget build(BuildContext context) {
+    _getWeatherData = HttpHandler.getTemp();
+
     return FutureBuilder<WeatherData>(
       future: _getWeatherData,
       builder: (context, snapshot) {
@@ -76,7 +73,7 @@ class _DisplayWeatherDataState extends State<DisplayWeatherData> {
           );
         } else if (snapshot.hasError) {
           return Text("Display Weather Data ${snapshot.hasError}");
-        }else{
+        } else {
           return CircularProgressIndicator();
         }
       },

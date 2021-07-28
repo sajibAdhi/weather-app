@@ -16,8 +16,8 @@ class HttpHandler {
           'http://api.openweathermap.org/data/2.5/weather?lat=${_getLatLoc.latitude}&lon=${_getLatLoc.longitude}&appid=$_apiKey&units=metric';
       var url = Uri.parse(uri);
       http.Response response = await http.get(url);
-
       if (response.statusCode == 200) {
+        print("get Temp ${WeatherData.fromJSON(json.decode(response.body))}");
         return WeatherData.fromJSON(json.decode(response.body));
       }
     }
